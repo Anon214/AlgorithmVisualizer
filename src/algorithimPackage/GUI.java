@@ -2,10 +2,15 @@ package algorithimPackage;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class GUI extends JPanel{
 	
 	static int screenWidth = 1276;
@@ -16,15 +21,22 @@ public class GUI extends JPanel{
 		//width has 15 pixel difference
 		super.paintComponent(g);
 		this.setBackground(Color.darkGray);
-		int length = 5;
+		int width = 10;
 		int x = 0;
-		for (int i = 0; i < screenWidth/10; i++) {
+		g.setColor(Color.white);
+		
+		//draws rectangles
+		LinkedList<Integer> listPop = shuffleRectangles(width);
+		int listArr[] = new int[listPop.size()];
+		
+		for (int i = 0; i < (screenWidth - 15) / width; i++) {
 			g.setColor(Color.white);
-			g.fillRect(x, (screenHeight - length) - 40, 10, length); 
+			g.fillRect(x, (screenHeight - listPop.getFirst()) - 40, width, listPop.getFirst()); 
 			g.setColor(Color.black);
-			g.drawRect(x, (screenHeight - length) - 40, 10, length);
-			length += 5;
-			x += 10;
+			g.drawRect(x, (screenHeight - listPop.getFirst()) - 40, width, listPop.getFirst());
+			listArr[i] = listPop.getFirst(); 
+			listPop.pop();
+			x += width;
 		}
 		
 	}
@@ -35,11 +47,34 @@ public class GUI extends JPanel{
 		
 		JFrame frame = new JFrame();
 		frame.setTitle("Algorithim Visualizer");
-		frame.setSize(screenWidth, screenHeight); //720
-		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(guiObj);
+		frame.setSize(screenWidth, screenHeight); 
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		frame.add(guiObj);
+
 	}
+	
+	public static LinkedList<Integer> shuffleRectangles(int width) { 
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		int x = 5;
+		for (int i = 0; i < 126; i++) {
+			list.add(x);
+			x += 5;
+		}
+		Collections.shuffle(list);
+		return list;
+		
+	}
+	
 
 }
+
+
+
+
+
+
+
