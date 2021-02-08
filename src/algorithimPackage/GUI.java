@@ -2,10 +2,12 @@ package algorithimPackage;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,18 +28,17 @@ public class GUI extends JPanel{
 		g.setColor(Color.white);
 		
 		//draws rectangles
-		LinkedList<Integer> listPop = shuffleRectangles(width);
-		int listArr[] = new int[listPop.size()];
+		int listArr[] = shuffleRectangles(width);
 		
 		for (int i = 0; i < (screenWidth - 15) / width; i++) {
 			g.setColor(Color.white);
-			g.fillRect(x, (screenHeight - listPop.getFirst()) - 40, width, listPop.getFirst()); 
+			g.fillRect(x, (screenHeight - listArr[i]) - 40, width, listArr[i]);
 			g.setColor(Color.black);
-			g.drawRect(x, (screenHeight - listPop.getFirst()) - 40, width, listPop.getFirst());
-			listArr[i] = listPop.getFirst(); 
-			listPop.pop();
+			g.drawRect(x, (screenHeight - listArr[i]) - 40, width, listArr[i]);
 			x += width;
 		}
+		
+		System.out.println("Array: " + Arrays.toString(listArr));
 		
 	}
 
@@ -52,20 +53,27 @@ public class GUI extends JPanel{
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+//		System.out.println(Arrays.toString(shuffleRectangles(10)));
 		frame.add(guiObj);
 
 	}
 	
-	public static LinkedList<Integer> shuffleRectangles(int width) { 
-		LinkedList<Integer> list = new LinkedList<Integer>();
+	public static int[] shuffleRectangles(int width) { 
+		List<Integer> list = new ArrayList<>();
+		int arr[] = new int[126];
 		int x = 5;
 		for (int i = 0; i < 126; i++) {
 			list.add(x);
 			x += 5;
 		}
+		
 		Collections.shuffle(list);
-		return list;
+		
+		for (int i = 0; i < 126; i++) {
+			arr[i] = list.get(i);
+		}
+
+		return arr;
 		
 	}
 	
