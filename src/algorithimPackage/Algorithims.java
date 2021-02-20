@@ -1,7 +1,8 @@
 package algorithimPackage;
 
+import javax.swing.JPanel;
 
-public class Algorithims {
+public class Algorithims extends JPanel {
 
 	public static int[] HeapSort(int[] array) {
 		int temp = 0;
@@ -13,11 +14,11 @@ public class Algorithims {
 					array[i] = array[j];
 					array[j] = temp;
 				}
+				//have to somehow add a repaint here
 			}
 		}
 		
 		return array;
-		
 		
 	}
 
